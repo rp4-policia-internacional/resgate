@@ -13,6 +13,17 @@ class CreateResgateService{
         private resgateRepository: IResgateRepository
     ){}
         public async execute(data: ICreateResgateDTO): Promise<ResgateEntity>{
+            
+            data.probabilidade = Math.random();
+            let numeroAleatorio = data.probabilidade * 11; 
+
+
+            while(numeroAleatorio > 10 || numeroAleatorio < 1) {
+                numeroAleatorio = Math.random() * 11;
+            }
+
+            data.probabilidade = numeroAleatorio;
+          
             const resgate = await this.resgateRepository.create(data);
             return resgate;
         }
